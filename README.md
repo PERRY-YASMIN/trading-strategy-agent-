@@ -103,6 +103,8 @@ This will install:
 - `pandas` - Data processing and analysis
 - `numpy` - Mathematical operations
 - `requests` - Sends HTTP requests to Discord
+- `python-dotenv` - Manages environment variables securely
+
 ### Step 2: Configure Discord Webhook
 
 1. Open Discord and navigate to your server
@@ -110,11 +112,19 @@ This will install:
 3. Click **New Webhook** or **Create Webhook**
 4. Customize the webhook name and select a channel
 5. Click **Copy Webhook URL**
-6. Open `config.py` and replace the placeholder with your webhook URL:
+6. Create a `.env` file in the project root (copy from `.env.example`):
 
-```python
-DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/YOUR_ACTUAL_WEBHOOK_URL"
+```bash
+cp .env.example .env
 ```
+
+7. Edit `.env` and add your webhook URL:
+
+```env
+DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN
+```
+
+**⚠️ IMPORTANT:** Never commit your `.env` file to git! It's already in `.gitignore` to protect your sensitive data.
 
 ### Step 3: Customize Settings (Optional)
 Edit `config.py` to change:

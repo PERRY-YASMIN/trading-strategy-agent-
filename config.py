@@ -4,6 +4,12 @@ Stores configuration settings for the trading bot.
 Includes API keys, trading parameters, alert settings, etc.
 """
 
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 
 # ============================================================================
 # TRADING CONFIGURATION
@@ -41,7 +47,8 @@ LONG_MA_WINDOW = 20
 
 # Discord webhook URL for sending alerts
 # Get your webhook URL from Discord Server Settings > Integrations > Webhooks
-DISCORD_WEBHOOK_URL = ""  # DISABLED
+# This is loaded from .env file for security
+DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL", "")
 
 
 # ============================================================================
