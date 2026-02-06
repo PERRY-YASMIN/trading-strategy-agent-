@@ -41,7 +41,7 @@ LONG_MA_WINDOW = 20
 
 # Discord webhook URL for sending alerts
 # Get your webhook URL from Discord Server Settings > Integrations > Webhooks
-DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1469363655643627640/_ZnU0uybiy-gjAFUm7pO2BjA4q_1ZtrSLpvdZUHY34aT0Nkt3opasAJvFr-9bOPL7EkS"
+DISCORD_WEBHOOK_URL = ""  # DISABLED
 
 
 # ============================================================================
