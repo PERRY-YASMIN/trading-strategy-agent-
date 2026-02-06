@@ -8,6 +8,7 @@ This bot continuously tracks stock market data and uses technical analysis to id
 
 - **Automated Monitoring**: Checks stock prices every 5 minutes
 - **Moving Average Crossover Strategy**: Detects buy/sell signals using short and long-term moving averages
+- **Backtesting Engine**: Test the strategy on historical data with performance metrics (win rate, returns, drawdown)
 - **Data Compression**: Efficient storage using delta compression for time-series data
 - **Discord Notifications**: Sends formatted alerts with emojis and price information
 - **Smart Alerts**: Only notifies when NEW signals appear (prevents duplicate alerts)
@@ -113,7 +114,89 @@ python main.py
 ```
 The bot will start monitoring and display status updates in the console. Press `Ctrl+C` to stop.
 
-## 📁 Project Structure
+## � Backtesting - Test the Strategy on Historical Data
+
+**🎯 NEW FEATURE**: Before running the bot live, you can test the Moving Average Crossover strategy on historical data to see how it would have performed.
+
+### Why Backtest?
+
+- **Evaluate Strategy Performance**: See win rate, total return, and maximum drawdown
+- **Build Confidence**: Understand how the strategy behaves in different market conditions
+- **Risk-Free Testing**: Test on historical data before risking real money
+- **Optimize Parameters**: Experiment with different MA windows to find what works best
+
+### Running a Backtest
+
+**Default (6 months):**
+```bash
+python main.py --backtest
+```
+
+**Custom period (e.g., 12 months):**
+```bash
+python main.py --backtest 12
+```
+
+### Sample Backtest Output
+
+```
+============================================================
+Starting Backtest for AAPL
+Period: 6 months | Initial Capital: $10,000.00
+============================================================
+
+Fetching 6 months of historical data...
+Loaded 126 trading days of data
+
+📈 BUY  | 2025-09-15 | Price: $155.23 | Shares: 64.42
+✅ SELL | 2025-10-02 | Price: $162.45 | P/L: $465.13 (+4.65%)
+📈 BUY  | 2025-11-08 | Price: $158.90 | Shares: 65.86
+❌ SELL | 2025-12-01 | Price: $156.20 | P/L: -$177.82 (-1.70%)
+
+============================================================
+BACKTEST RESULTS
+============================================================
+
+📊 Trading Performance:
+   Total Trades:        8
+   Winning Trades:      5 ✅
+   Losing Trades:       3 ❌
+   Win Rate:            62.50%
+
+💰 Financial Performance:
+   Initial Capital:     $10,000.00
+   Final Capital:       $11,245.67
+   Total Return:        $1,245.67
+   Return %:            +12.46%
+
+📈 Trade Statistics:
+   Avg Profit/Trade:    $155.71
+   Best Trade:          $623.45
+   Worst Trade:         -$289.12
+   Max Drawdown:        5.23%
+
+Verdict: 🎉 Excellent Performance!
+============================================================
+```
+
+### Understanding the Metrics
+
+- **Win Rate**: Percentage of trades that were profitable
+- **Total Return**: Overall profit or loss from all trades
+- **Avg Profit/Trade**: Average gain (or loss) per trade
+- **Max Drawdown**: Largest peak-to-trough decline (risk indicator)
+
+### Testing the Alert System
+
+Before running the bot, test that Discord alerts work correctly:
+
+```bash
+python main.py --test
+```
+
+This sends test BUY and SELL alerts to verify your webhook configuration.
+
+## �📁 Project Structure
 ```
 trading_bot/
 ├── main.py              # Main loop and orchestration
@@ -121,9 +204,11 @@ trading_bot/
 ├── compressor.py        # Delta compression implementation
 ├── indicators.py        # Moving average calculations and signal detection
 ├── alert.py             # Discord webhook notifications
+├── backtest.py          # Backtesting engine for strategy evaluation
 ├── config.py            # Configuration settings
 ├── requirements.txt     # Python dependencies
-└── README.md           # This file
+├── README.md            # This file
+└── docs/                # Detailed documentation
 ```
 
 ## 🔧 Configuration Options

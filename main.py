@@ -20,6 +20,7 @@ import data_fetcher
 import compressor
 import indicators
 import alert
+import backtest
 
 
 def test_alert_system():
@@ -226,8 +227,33 @@ def run_monitoring_loop():
 if __name__ == "__main__":
     import sys
     
-    # Run test mode if --test argument is provided
-    if len(sys.argv) > 1 and sys.argv[1] == "--test":
-        test_alert_system()
+    # Check for command-line arguments
+    if len(sys.argv) > 1:
+        command = sys.argv[1]
+        
+        if command == "--test":
+            # Run alert system test
+            test_alert_system()
+        
+        elif command == "--backtest":
+            # Run backtesting engine
+            months = 6  # Default to 6 months
+            
+            # Allow custom period: python main.py --backtest 12
+            if len(sys.argv) > 2:
+                try:
+                    months = int(sys.argv[2])
+                except ValueError:
+                    print("Invalid backtest period. Using default (6 months).")
+            
+            backtest.run_backtest_cli(months=months)
+        
+        else:
+            print(f"Unknown command: {command}")
+            print("\nAvailable commands:")
+            print("  python main.py           - Run the trading bot")
+            print("  python main.py --test    - Test alert system")
+            print("  python main.py --backtest [months]  - Run backtest (default: 6 months)")
     else:
+        # No arguments - run normal bot
         main()
